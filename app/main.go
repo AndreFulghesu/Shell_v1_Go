@@ -13,16 +13,28 @@ var reader = bufio.NewReader(os.Stdin)
 
 var loop = true
 
+var _exit_command = "exit"
+
 func main() {
 
 	for loop == true {
+
 		fmt.Print("$ ")
 		command, err := reader.ReadString('\n')
 
 		if err == nil {
-			message := strings.TrimSpace(command)
-			fmt.Printf("%s%s\n", message, not_found_msg)
+			evaluate_command(command)
 		}
 	}
 
+}
+
+func evaluate_command(command string) {
+	message := strings.TrimSpace(command)
+
+	if message == _exit_command {
+		os.Exit(-1)
+	}
+
+	fmt.Printf("%s%s\n", message, not_found_msg)
 }
