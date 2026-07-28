@@ -14,6 +14,7 @@ var reader = bufio.NewReader(os.Stdin)
 var loop = true
 
 var _exit_command = "exit"
+var _echo_command = "echo"
 
 func main() {
 
@@ -30,11 +31,22 @@ func main() {
 }
 
 func evaluate_command(command string) {
-	message := strings.TrimSpace(command)
 
-	if message == _exit_command {
+	splitted := strings.Split(strings.TrimSpace(command), " ")
+
+	base_command := splitted[0]
+	args := splitted[1:]
+
+	switch base_command {
+	case _exit_command:
 		os.Exit(0)
+	case _echo_command:
+		echo_command(args)
+	default:
+		fmt.Printf("%s%s\n", base_command, not_found_msg)
 	}
+}
 
-	fmt.Printf("%s%s\n", message, not_found_msg)
+func echo_command(args []string) {
+	fmt.Print(strings.Join(args, " "), "\n")
 }
