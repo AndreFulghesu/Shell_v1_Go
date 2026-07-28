@@ -71,7 +71,7 @@ func type_command(args []string) {
 		return
 	}
 
-	//fmt.Printf(constants.NOT_FOUND, args[0])
+	fmt.Printf(constants.NOT_FOUND, args[0])
 }
 
 /*
