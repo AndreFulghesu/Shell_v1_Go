@@ -33,7 +33,7 @@ func evaluate_command(command string) {
 	message := strings.TrimSpace(command)
 
 	if message == _exit_command {
-		os.Exit(-1)
+		os.Exit(0)
 	}
 
 	fmt.Printf("%s%s\n", message, not_found_msg)
