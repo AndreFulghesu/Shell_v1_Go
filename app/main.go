@@ -15,6 +15,6 @@ func main() {
 	command, err := bufio.NewReader(os.Stdin).ReadString('\n')
 
 	if err == nil {
-		fmt.Printf("%s: %s", command, not_found_msg)
+		fmt.Printf("%s%s", command, not_found_msg)
 	}
 }
