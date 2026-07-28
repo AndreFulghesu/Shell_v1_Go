@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/codecrafters-io/shell-starter-go/app/commands"
+	"github.com/codecrafters-io/shell-starter-go/app/constants"
 )
 
 var _ = fmt.Print
@@ -12,9 +15,6 @@ var not_found_msg = ": command not found"
 var reader = bufio.NewReader(os.Stdin)
 
 var loop = true
-
-var _exit_command = "exit"
-var _echo_command = "echo"
 
 func main() {
 
@@ -38,15 +38,28 @@ func evaluate_command(command string) {
 	args := splitted[1:]
 
 	switch base_command {
-	case _exit_command:
+	case commands.EXIT:
 		os.Exit(0)
-	case _echo_command:
+	case commands.ECHO:
 		echo_command(args)
+	case commands.TYPE:
+		type_command(args)
 	default:
-		fmt.Printf("%s%s\n", base_command, not_found_msg)
+		fmt.Printf(constants.COMMAND_NOT_FOUND, base_command)
 	}
 }
 
 func echo_command(args []string) {
 	fmt.Print(strings.Join(args, " "), "\n")
+}
+
+func type_command(args []string) {
+
+	_, exists := commands.Find(args[0])
+
+	if exists {
+		fmt.Printf(constants.BUILT_IN, args[0])
+	} else {
+		fmt.Printf(constants.NOT_FOUND, args[0])
+	}
 }
