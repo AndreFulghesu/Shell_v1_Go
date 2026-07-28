@@ -20,7 +20,7 @@ func main() {
 
 	for loop == true {
 
-		fmt.Print("$")
+		fmt.Print("$ ")
 		command, err := reader.ReadString('\n')
 
 		if err == nil {
