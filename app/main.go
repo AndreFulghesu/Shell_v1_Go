@@ -35,15 +35,16 @@ func main() {
 
 func evaluate_command(command string) {
 
+	/* split user typed values based on spaces */
 	splitted := strings.Split(strings.TrimSpace(command), " ")
 
 	base_command := splitted[0]
 	args := splitted[1:]
 	/* if base_command is an PATH ENV command */
-	is_env_command, path := utils.CheckEnvCommand(base_command)
+	is_env_command, _ := utils.CheckEnvCommand(base_command)
 
 	if is_env_command {
-		cmd := exec.Command(path, args...)
+		cmd := exec.Command(base_command, args...)
 
 		output, err := cmd.CombinedOutput()
 		if err != nil {
