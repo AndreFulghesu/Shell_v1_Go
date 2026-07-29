@@ -39,7 +39,7 @@ func evaluate_command(command string) {
 
 	base_command := splitted[0]
 	args := splitted[1:]
-
+	/* if base_command is an PATH ENV command */
 	is_env_command, path := utils.CheckEnvCommand(base_command)
 
 	if is_env_command {
@@ -47,10 +47,10 @@ func evaluate_command(command string) {
 
 		output, err := cmd.CombinedOutput()
 		if err != nil {
-			fmt.Println(err)
+			fmt.Print(err)
 			return
 		}
-		fmt.Println(string(output))
+		fmt.Print(string(output))
 		return
 	}
 
