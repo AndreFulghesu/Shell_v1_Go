@@ -1,4 +1,4 @@
-package commandsapi
+package builtin
 
 import (
 	"fmt"

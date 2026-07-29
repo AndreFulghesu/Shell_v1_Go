@@ -8,8 +8,8 @@ import (
 
 	"strings"
 
+	"github.com/codecrafters-io/shell-starter-go/app/builtin"
 	"github.com/codecrafters-io/shell-starter-go/app/commands"
-	"github.com/codecrafters-io/shell-starter-go/app/commandsapi"
 	"github.com/codecrafters-io/shell-starter-go/app/constants"
 	"github.com/codecrafters-io/shell-starter-go/app/utils"
 )
@@ -58,9 +58,9 @@ func evaluate_command(command string) {
 	case commands.EXIT:
 		os.Exit(0)
 	case commands.ECHO:
-		commandsapi.Echo_command(args)
+		builtin.Echo_command(args)
 	case commands.TYPE:
-		commandsapi.Type_command(args)
+		builtin.Type_command(args)
 	default:
 		fmt.Printf(constants.COMMAND_NOT_FOUND, base_command)
 	}
