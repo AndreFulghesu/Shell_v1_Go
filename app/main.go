@@ -27,24 +27,24 @@ func main() {
 		command, err := reader.ReadString('\n')
 
 		if err == nil {
-			evaluate_command(command)
+			evaluateCommand(command)
 		}
 	}
 
 }
 
-func evaluate_command(command string) {
+func evaluateCommand(command string) {
 
 	/* split user typed values based on spaces */
 	splitted := strings.Split(strings.TrimSpace(command), " ")
 
-	base_command := splitted[0]
+	baseCommand := splitted[0]
 	args := splitted[1:]
 	/* if base_command is an PATH ENV command */
-	is_env_command, _ := utils.CheckEnvCommand(base_command)
+	isEnvCommand, _ := utils.CheckEnvCommand(baseCommand)
 
-	if is_env_command {
-		cmd := exec.Command(base_command, args...)
+	if isEnvCommand {
+		cmd := exec.Command(baseCommand, args...)
 
 		output, err := cmd.CombinedOutput()
 		if err != nil {
@@ -55,14 +55,16 @@ func evaluate_command(command string) {
 		return
 	}
 
-	switch base_command {
+	switch baseCommand {
 	case commands.EXIT:
 		os.Exit(0)
 	case commands.ECHO:
-		builtin.Echo_command(args)
+		builtin.EchoCommand(args)
 	case commands.TYPE:
-		builtin.Type_command(args)
+		builtin.TypeCommand(args)
+	case commands.PWD:
+		builtin.PwdCommand()
 	default:
-		fmt.Printf(constants.COMMAND_NOT_FOUND, base_command)
+		fmt.Printf(constants.COMMAND_NOT_FOUND, baseCommand)
 	}
 }

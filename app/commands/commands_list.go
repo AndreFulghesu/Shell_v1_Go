@@ -4,16 +4,18 @@ const (
 	EXIT = "exit"
 	ECHO = "echo"
 	TYPE = "type"
+	PWD  = "pwd"
 )
 
-var List = []string{
+var list = []string{
 	EXIT,
 	ECHO,
 	TYPE,
+	PWD,
 }
 
 func Find(input string) (string, bool) {
-	for _, cmd := range List {
+	for _, cmd := range list {
 		if cmd == input {
 			return cmd, true
 		}
