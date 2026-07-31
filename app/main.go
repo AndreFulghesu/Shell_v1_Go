@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"strings"
@@ -20,7 +21,14 @@ var loop = true
 
 func main() {
 
-	constants.UpdateCurrentDir(initCurrentDir())
+	dir, err := os.Getwd()
+
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(-1)
+	}
+
+	constants.UpdateCurrentDir(dir)
 
 	for loop == true {
 
@@ -71,14 +79,4 @@ func evaluateCommand(command string) {
 	default:
 		fmt.Printf(constants.COMMAND_NOT_FOUND, baseCommand)
 	}
-}
-
-func initCurrentDir() string {
-	currentDir, err := os.Getwd()
-	if err == nil {
-		return currentDir
-	} else {
-		fmt.Printf("FATAL error")
-	}
-	return ""
 }

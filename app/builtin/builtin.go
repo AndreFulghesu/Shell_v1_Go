@@ -60,9 +60,11 @@ func CdCommand(newPath []string) {
 	//check if path exists
 	if error != nil {
 		if os.IsNotExist(error) {
-			fmt.Printf(constants.PATH_NOT_FOUND, "cd", "newPath")
+			fmt.Printf(constants.PATH_NOT_FOUND, "cd", argument)
+			return
 		}
 		//handle errors in future releases :)
+		fmt.Print("Other type of error\n")
 		return
 	}
 
