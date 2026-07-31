@@ -20,6 +20,8 @@ var loop = true
 
 func main() {
 
+	constants.UpdateCurrentDir(initCurrentDir())
+
 	for loop == true {
 
 		fmt.Print("$ ")
@@ -69,4 +71,12 @@ func evaluateCommand(command string) {
 	default:
 		fmt.Printf(constants.COMMAND_NOT_FOUND, baseCommand)
 	}
+}
+
+func initCurrentDir() string {
+	CurrentDir, err := os.Getwd()
+	if err == nil {
+		return CurrentDir
+	}
+	return ""
 }
