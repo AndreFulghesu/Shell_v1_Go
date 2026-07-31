@@ -2,6 +2,7 @@ package builtin
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -52,6 +53,16 @@ func CdCommand(newPath []string) {
 		//delete path last element
 		path := filepath.Dir(constants.CurrentDir)
 		constants.UpdateCurrentDir(path)
+		return
+	}
+
+	_, error := os.Stat(argument)
+	//check if path exists
+	if error != nil {
+		if os.IsNotExist(error) {
+			fmt.Printf(constants.PATH_NOT_FOUND, "cd", "newPath")
+		}
+		//handle errors in future releases :)
 		return
 	}
 
