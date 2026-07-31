@@ -55,11 +55,7 @@ func CdCommand(newPath []string) {
 		return
 	}
 
-	if filepath.IsAbs(argument) {
-		constants.UpdateCurrentDir(argument)
-		return
-	}
-
+	constants.UpdateCurrentDir(argument)
 	/*
 		info, error := os.Stat(argument)
 
