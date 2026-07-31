@@ -1,11 +1,11 @@
 package constants
 
 import (
-	"path/filepath"
+	"os"
 )
 
 // errors handling in next features :)
-var CurrentDir, _ = filepath.Abs(".")
+var CurrentDir, _ = os.Getwd()
 
 func UpdateCurrentDir(newDir string) {
 	CurrentDir = newDir
