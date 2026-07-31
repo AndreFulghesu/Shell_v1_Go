@@ -5,8 +5,16 @@ import (
 )
 
 // errors handling in next features :)
-var CurrentDir, _ = os.Getwd()
+var CurrentDir = initCurrentDir()
 
 func UpdateCurrentDir(newDir string) {
 	CurrentDir = newDir
+}
+
+func initCurrentDir() string {
+	CurrentDir, err := os.Getwd()
+	if err == nil {
+		return CurrentDir
+	}
+	return ""
 }
