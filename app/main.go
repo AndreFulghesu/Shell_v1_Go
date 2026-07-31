@@ -74,9 +74,11 @@ func evaluateCommand(command string) {
 }
 
 func initCurrentDir() string {
-	CurrentDir, err := os.Getwd()
+	currentDir, err := os.Getwd()
 	if err == nil {
-		return CurrentDir
+		return currentDir
+	} else {
+		fmt.Printf("FATAL error")
 	}
 	return ""
 }
