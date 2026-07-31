@@ -52,7 +52,7 @@ func CdCommand(newPath []string) {
 	if argument == ".." || argument == "../" {
 		//delete path last element
 		path := filepath.Dir(constants.CurrentDir)
-		constants.UpdateCurrentDir(path)
+		os.Chdir(path)
 		return
 	}
 
@@ -68,7 +68,7 @@ func CdCommand(newPath []string) {
 		return
 	}
 
-	constants.UpdateCurrentDir(argument)
+	os.Chdir(argument)
 	/*
 		info, error := os.Stat(argument)
 

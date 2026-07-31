@@ -1,8 +1,6 @@
 package constants
 
-// errors handling in next features :)
-var CurrentDir string
+import "os"
 
-func UpdateCurrentDir(newDir string) {
-	CurrentDir = newDir
-}
+// errors handling in next features :)
+var CurrentDir, _ = os.Getwd()

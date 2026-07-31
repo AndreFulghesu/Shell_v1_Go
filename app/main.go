@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"log"
 	"os"
 	"os/exec"
 	"strings"
@@ -20,15 +19,6 @@ var reader = bufio.NewReader(os.Stdin)
 var loop = true
 
 func main() {
-
-	dir, err := os.Getwd()
-
-	if err != nil {
-		log.Fatal(err)
-		os.Exit(-1)
-	}
-
-	constants.UpdateCurrentDir(dir)
 
 	for loop == true {
 
