@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-
 	"strings"
 
 	"github.com/codecrafters-io/shell-starter-go/app/builtin"
@@ -56,6 +55,7 @@ func evaluateCommand(command string) {
 	}
 
 	switch baseCommand {
+
 	case commands.EXIT:
 		os.Exit(0)
 	case commands.ECHO:
@@ -64,6 +64,8 @@ func evaluateCommand(command string) {
 		builtin.TypeCommand(args)
 	case commands.PWD:
 		builtin.PwdCommand()
+	case commands.CD:
+		builtin.CdCommand(args)
 	default:
 		fmt.Printf(constants.COMMAND_NOT_FOUND, baseCommand)
 	}

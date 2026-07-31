@@ -5,6 +5,7 @@ const (
 	ECHO = "echo"
 	TYPE = "type"
 	PWD  = "pwd"
+	CD   = "cd"
 )
 
 var list = []string{
@@ -12,6 +13,7 @@ var list = []string{
 	ECHO,
 	TYPE,
 	PWD,
+	CD,
 }
 
 func Find(input string) (string, bool) {

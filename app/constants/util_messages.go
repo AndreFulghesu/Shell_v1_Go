@@ -5,4 +5,5 @@ const (
 	NOT_FOUND         = "%s not found\n"
 	BUILT_IN          = "%s is a shell builtin\n"
 	PATH_COMMAND      = "%s is %s\n"
+	PATH_NOT_FOUND    = "%s: %s: No such file or directory.\n"
 )
