@@ -2,7 +2,6 @@ package builtin
 
 import (
 	"fmt"
-	"os"
 	"path/filepath"
 	"strings"
 
@@ -50,25 +49,34 @@ func CdCommand(newPath []string) {
 
 	//Handling back 1 dir position
 	if argument == ".." || argument == "../" {
+		//delete path last element
 		path := filepath.Dir(constants.CurrentDir)
 		constants.UpdateCurrentDir(path)
 		return
 	}
 
-	info, error := os.Stat(argument)
-
-	//check if path exists
-	if error != nil {
-		if os.IsNotExist(error) {
-			fmt.Printf(constants.PATH_NOT_FOUND, "cd", "newPath")
-		}
-		//handle errors in future releases :)
-		return
-	}
-	//path is a directory
-	if info.IsDir() {
+	if filepath.IsAbs(argument) {
 		constants.UpdateCurrentDir(argument)
 		return
 	}
-	//path, _ = filepath.Abs(newPath)
+
+	/*
+		info, error := os.Stat(argument)
+
+		//check if path exists
+		if error != nil {
+			if os.IsNotExist(error) {
+				fmt.Printf(constants.PATH_NOT_FOUND, "cd", "newPath")
+			}
+			//handle errors in future releases :)
+			return
+		}
+		//path is a directory
+		if info.IsDir() {
+			constants.UpdateCurrentDir(argument)
+			return
+		}
+
+		//path, _ = filepath.Abs(newPath)
+	*/
 }
