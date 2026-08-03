@@ -37,7 +37,8 @@ func TypeCommand(args []string) {
 }
 
 func PwdCommand() {
-	fmt.Println(constants.CurrentDir)
+	current, _ := os.Getwd()
+	fmt.Println(current)
 }
 
 func CdCommand(newPath []string) {
@@ -50,9 +51,19 @@ func CdCommand(newPath []string) {
 
 	//Handling back 1 dir position
 	if argument == ".." || argument == "../" {
+		current, _ := os.Getwd()
 		//delete path last element
-		path := filepath.Dir(constants.CurrentDir)
+		path := filepath.Dir(current)
 		os.Chdir(path)
+		return
+	}
+
+	if argument == "~" {
+		//get HOME env variable
+		home, err := os.UserHomeDir()
+		if err == nil {
+			os.Chdir(home)
+		}
 		return
 	}
 
@@ -69,23 +80,4 @@ func CdCommand(newPath []string) {
 	}
 
 	os.Chdir(argument)
-	/*
-		info, error := os.Stat(argument)
-
-		//check if path exists
-		if error != nil {
-			if os.IsNotExist(error) {
-				fmt.Printf(constants.PATH_NOT_FOUND, "cd", "newPath")
-			}
-			//handle errors in future releases :)
-			return
-		}
-		//path is a directory
-		if info.IsDir() {
-			constants.UpdateCurrentDir(argument)
-			return
-		}
-
-		//path, _ = filepath.Abs(newPath)
-	*/
 }
