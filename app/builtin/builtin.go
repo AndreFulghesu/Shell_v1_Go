@@ -12,7 +12,12 @@ import (
 )
 
 func EchoCommand(args []string) {
-	fmt.Print(strings.Join(args, " "), "\n")
+	var builtString []string
+	fmt.Printf("%q\n", args)
+
+	builtString = strings.Fields(strings.Join(args, " "))
+	fmt.Printf("%q\n", builtString)
+	fmt.Println(strings.TrimSpace(strings.Join(builtString, " ")))
 }
 
 func TypeCommand(args []string) {

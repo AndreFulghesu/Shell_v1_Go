@@ -14,11 +14,14 @@ set -e # Exit early if any commands fail
 # - Edit .codecrafters/compile.sh to change how your program compiles remotely
 (
   cd "$(dirname "$0")" # Ensure compile steps are run within the repository directory
-  go build -o /tmp/codecrafters-build-shell-go app/*.go
+  go clean -cache
+  go build -a -o ./codecrafters-build-shell-go ./app
 )
 
 # Copied from .codecrafters/run.sh
 #
 # - Edit this to change how your program runs locally
 # - Edit .codecrafters/run.sh to change how your program runs remotely
-exec /tmp/codecrafters-build-shell-go "$@"
+echo "BINARIO:"
+ls -l ./codecrafters-build-shell-go
+exec ./codecrafters-build-shell-go "$@"

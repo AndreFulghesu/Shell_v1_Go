@@ -26,7 +26,7 @@ func main() {
 		command, err := reader.ReadString('\n')
 
 		if err == nil {
-			evaluateCommand(command)
+			evaluateCommand(strings.TrimSpace(command))
 		}
 	}
 
@@ -34,39 +34,41 @@ func main() {
 
 func evaluateCommand(command string) {
 
-	/* split user typed values based on spaces */
-	splitted := strings.Split(strings.TrimSpace(command), " ")
+	args := utils.ParseArgs(command)
 
-	baseCommand := splitted[0]
-	args := splitted[1:]
+	baseCommand := args[0]
+	args = args[1:]
+
+	_, isBuiltIn := commands.Find(baseCommand)
+
+	if isBuiltIn {
+		switch baseCommand {
+
+		case commands.EXIT:
+			os.Exit(0)
+		case commands.ECHO:
+			builtin.EchoCommand(args)
+		case commands.TYPE:
+			builtin.TypeCommand(args)
+		case commands.PWD:
+			fmt.Println("ENTRATO NEL CASE PWD")
+			builtin.PwdCommand()
+		case commands.CD:
+			builtin.CdCommand(args)
+		default:
+			fmt.Printf(constants.COMMAND_NOT_FOUND, baseCommand)
+		}
+		return
+	}
+
 	/* if base_command is an PATH ENV command */
 	isEnvCommand, _ := utils.CheckEnvCommand(baseCommand)
 
 	if isEnvCommand {
 		cmd := exec.Command(baseCommand, args...)
 
-		output, err := cmd.CombinedOutput()
-		if err != nil {
-			fmt.Print(err)
-			return
-		}
+		output, _ := cmd.CombinedOutput()
 		fmt.Print(string(output))
 		return
-	}
-
-	switch baseCommand {
-
-	case commands.EXIT:
-		os.Exit(0)
-	case commands.ECHO:
-		builtin.EchoCommand(args)
-	case commands.TYPE:
-		builtin.TypeCommand(args)
-	case commands.PWD:
-		builtin.PwdCommand()
-	case commands.CD:
-		builtin.CdCommand(args)
-	default:
-		fmt.Printf(constants.COMMAND_NOT_FOUND, baseCommand)
 	}
 }
